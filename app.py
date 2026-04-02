@@ -1,8 +1,5 @@
 # app.py
-# ── SQLite patch (MUST be first — fixes ChromaDB on Streamlit Cloud) ──
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 from dotenv import load_dotenv
 from rag_engine import ingest_pdf, build_chain, ask_stream
 

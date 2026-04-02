@@ -1,7 +1,6 @@
-# ── Streamlit ─────────────────────────
 streamlit>=1.40.0
 
-# ── LangChain stack (pinned to 0.3.x — stable, pre-built wheels) ──
+# LangChain stack
 langchain==0.3.27
 langchain-community==0.3.27
 langchain-core==0.3.57
@@ -9,13 +8,12 @@ langchain-text-splitters==0.3.8
 langchain-google-genai>=2.0.0
 langchain-huggingface>=0.1.2
 
-# ── Vector store ──────────────────────
-chromadb==0.6.0
-pysqlite3-binary>=0.5.4      # ← replaces system SQLite (too old on Cloud)
+# Vector store — FAISS instead of ChromaDB (no native build needed)
+faiss-cpu>=1.8.0
 
-# ── Embeddings + PDF ──────────────────
+# Embeddings + PDF
 sentence-transformers>=3.0.0
 pypdf>=4.3.0
 
-# ── Misc ──────────────────────────────
+# Misc
 python-dotenv>=1.0.0

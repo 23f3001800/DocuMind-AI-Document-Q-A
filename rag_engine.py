@@ -4,7 +4,7 @@ import tempfile
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
 
@@ -48,7 +48,7 @@ def ingest_pdf(uploaded_file):
     for i, chunk in enumerate(chunks):
         chunk.metadata["chunk_id"] = i
 
-    vectorstore = Chroma.from_documents(
+    vectorstore = FAISS.from_documents(
         documents=chunks,
         embedding=embeddings
     )
