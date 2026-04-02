@@ -1,5 +1,5 @@
 # app.py
-
+import streamlit as st
 from dotenv import load_dotenv
 from rag_engine import ingest_pdf, build_chain, ask_stream
 
