@@ -2,7 +2,7 @@
 
 Ask questions about any PDF and get cited answers powered by RAG.
 
-**Live demo:** [https://23f3001800-documind-ai-document-q-a-app-6pcxhe.streamlit.app/](...)
+**Live demo:** https://23f3001800-documind-ai-document-q-a-app-6pcxhe.streamlit.app
 
 
 ## How it works
