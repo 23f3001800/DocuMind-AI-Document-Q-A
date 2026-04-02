@@ -21,7 +21,8 @@ def get_llm():
     return ChatGoogleGenerativeAI(
         model="gemini-2.5-flash",
         google_api_key=os.getenv("gemini_api_key"),
-        temperature=0.1
+        temperature=0.7,
+        streaming=True
     )
 
 
@@ -86,27 +87,46 @@ def build_chain(retriever):
 
     return rag_chain
 
-
-# ── Ask a question ───────────────────────────────────────────
+# ── Non-streaming ask (kept for fallback) ────────────────────
 def ask(chain, question):
     result = chain.invoke({"input": question})
+    return result["answer"], _extract_citations(result.get("context", []))
 
-    answer = result["answer"]
-    sources = result.get("context", [])
 
+# ── Streaming ask ─────────────────────────────────────────────
+def ask_stream(chain, question):
+    """
+    Generator. Yields (token, None) for each token during streaming.
+    Yields ("", citations_list) once as the final sentinel when done.
+
+    How chain.stream() chunks arrive:
+      chunk 1  →  {"context": [...docs...]}   ← retrieved docs
+      chunk 2+ →  {"answer": "Hello"}         ← one token each
+    """
     citations = []
-    seen = set()
 
-    for doc in sources:
+    for chunk in chain.stream({"input": question}):
+
+        # First chunk contains the retrieved documents → build citations
+        if "context" in chunk:
+            citations = _extract_citations(chunk["context"])
+
+        # Subsequent chunks contain one answer token each
+        if "answer" in chunk and chunk["answer"]:
+            yield chunk["answer"], None   # ← send token to app.py
+
+    # After loop ends → send citations as the final signal
+    yield "", citations
+
+
+# ── Shared helper ─────────────────────────────────────────────
+def _extract_citations(docs):
+    citations, seen = [], set()
+    for doc in docs:
         page = doc.metadata.get("page", 0)
         snippet = doc.page_content[:120].strip().replace("\n", " ")
         key = f"p{page}"
-
         if key not in seen:
-            citations.append({
-                "page": page + 1,
-                "snippet": snippet
-            })
+            citations.append({"page": page + 1, "snippet": snippet})
             seen.add(key)
-
-    return answer, citations
+    return citations
