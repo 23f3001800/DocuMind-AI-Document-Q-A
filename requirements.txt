@@ -1,19 +1,11 @@
 streamlit>=1.40.0
-
-# LangChain stack
 langchain==0.3.27
 langchain-community==0.3.27
-langchain-core==0.3.57
-langchain-text-splitters==0.3.8
+langchain-core>=0.3.72,<1.0.0
+langchain-text-splitters>=0.3.9,<1.0.0
 langchain-google-genai>=2.0.0
 langchain-huggingface>=0.1.2
-
-# Vector store — FAISS instead of ChromaDB (no native build needed)
 faiss-cpu>=1.8.0
-
-# Embeddings + PDF
 sentence-transformers>=3.0.0
 pypdf>=4.3.0
-
-# Misc
 python-dotenv>=1.0.0
