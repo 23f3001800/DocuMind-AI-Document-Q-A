@@ -109,3 +109,27 @@ def _extract_citations(docs):
             citations.append({"page": page + 1, "snippet": snippet})
             seen.add(key)
     return citations
+
+
+
+def retrieve(chain_dict, question):
+    """
+    Step 1: Run retriever only — returns context string + citations.
+    Called BEFORE streaming so we have citations ready immediately.
+    """
+    docs     = chain_dict["retriever"].invoke(question)
+    context  = "\n\n".join(doc.page_content for doc in docs)
+    citations = _extract_citations(docs)
+    return context, citations
+
+
+def stream_tokens(chain_dict, context, question):
+    """
+    Step 2: Pure token generator — used by st.write_stream().
+    Yields only strings, no sentinel needed.
+    st.write_stream() handles the UI updates natively.
+    """
+    for token in chain_dict["llm_chain"].stream(
+        {"context": context, "input": question}
+    ):
+        yield token
