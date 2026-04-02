@@ -2,6 +2,9 @@
 
 Ask questions about any PDF and get cited answers powered by RAG.
 
+**Live demo:** [https://23f3001800-documind-ai-document-q-a-app-6pcxhe.streamlit.app/](...)
+
+
 ## How it works
 1. PDF is loaded and split into 500-char chunks with 50-char overlap
 2. Chunks are embedded using sentence-transformers/all-MiniLM-L6-v2
