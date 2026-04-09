@@ -1,0 +1,12 @@
+[
+  {
+    "question": "What is the main topic of this document?",
+    "ground_truth": "The document discusses AI engineering concepts.",
+    "collection": "default"
+  },
+  {
+    "question": "What are the key findings?",
+    "ground_truth": "The key findings include multiple technical concepts.",
+    "collection": "default"
+  }
+]

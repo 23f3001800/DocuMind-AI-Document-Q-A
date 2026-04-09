@@ -78,3 +78,6 @@ Upload PDF → chunk → embed → retrieve → generate answer → return citat
 ## Status
 MVP scaffold complete. Retrieval and evaluation integration in progress.
 >>>>>>> 806ac73 ( re-structuring the files and adding the fast api endpoints)
+
+
+
