@@ -1,5 +1,17 @@
-# Environment variables (MOST IMPORTANT)
 .env
-
-# Python virtual environment
 venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+uploads/
+data/
+chroma_db/
+.faiss/
+checkpoints/
+logs/
+dist/
+build/
+.streamlit/secrets.toml

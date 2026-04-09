@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+python-multipart
+pydantic
+langchain
+langchain-community
+langchain-google-genai
+chromadb
+faiss-cpu
+sentence-transformers
+rank-bm25
+pymupdf
+streamlit
+requests
+ragas
+python-dotenv
